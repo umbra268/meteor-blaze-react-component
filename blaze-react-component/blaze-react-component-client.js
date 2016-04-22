@@ -6,17 +6,17 @@ import { ReactiveVar } from 'meteor/reactive-var';
 class BlazeComponent extends Component {
 
   componentDidMount() {
-    this._blazeData = new ReactiveVar(_.omit(this.props, 'template', 'ele', 'eleProps'));
+    this._blazeData = new ReactiveVar(_.omit(this.props, 'blaze', 'ele', 'eleProps'));
 
     this._blazeView = Blaze.renderWithData(
-      Blaze.Template[this.props.template],
+      Blaze.Template[this.props.blaze],
       () => this._blazeData.get(),
       ReactDOM.findDOMNode(this._blazeRef)
     );
   }
 
   componentWillReceiveProps(nextProps) {
-    this._blazeData.set(_.omit(nextProps, 'template', 'ele', 'eleProps'));
+    this._blazeData.set(_.omit(nextProps, 'blaze', 'ele', 'eleProps'));
   }
 
   shouldComponentUpdate() {
@@ -37,7 +37,7 @@ class BlazeComponent extends Component {
 BlazeComponent.defaultProps = { ele: 'span', eleProps: {} };
 
 blazeToReact = function(template) {
-  return (props) => <BlazeComponent {...props} template={template} />;
+  return (props) => <BlazeComponent {...props} blaze={template} />;
 }
 
 export { blazeToReact };
