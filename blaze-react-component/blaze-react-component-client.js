@@ -9,7 +9,7 @@ class BlazeComponent extends Component {
     this._blazeData = new ReactiveVar(_.omit(this.props, 'template'));
 
     this._blazeView = Blaze.renderWithData(
-      Template[this.props.template],
+      Blaze.Template[this.props.template],
       () => this._blazeData.get(),
       ReactDOM.findDOMNode(this._blazeRef)
     );
